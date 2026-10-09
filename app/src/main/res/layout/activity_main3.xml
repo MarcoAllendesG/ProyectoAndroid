@@ -35,26 +35,45 @@
                 android:hint="Nombre del Personaje"
                 android:inputType="textPersonName"/>
 
-            <EditText
-                android:id="@+id/etClaseRaza"
+            <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Clase y Raza (Ej: Guerrero Elfo)"
-                android:inputType="text"/>
+                android:columnCount="2"
+                android:rowCount="2"
+                android:alignmentMode="alignBounds">
+                <EditText android:id="@+id/etRaza" android:layout_width="160dp" android:layout_height="wrap_content" android:hint="Raza" android:inputType="number"/>
 
-            <EditText
-                android:id="@+id/etNivel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Nivel"
-                android:inputType="number"/>
+                <EditText
+                    android:id="@+id/etClase"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Clase y Elemento"
+                    android:inputType="number" />
+                <EditText android:id="@+id/etNivel" android:layout_width="160dp" android:layout_height="wrap_content" android:hint="Nivel" android:inputType="number"/>
+                <EditText android:id="@+id/etDados" android:layout_width="160dp" android:layout_height="wrap_content" android:hint="Dados" android:inputType="number"/>
+            </GridLayout>
 
-            <EditText
-                android:id="@+id/etPuntosVida"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Puntos de Vida (HP Max)"
-                android:inputType="number"/>
+                android:text="Estadisticas"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"/>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:rowCount="3"
+                android:alignmentMode="alignBounds">
+                <EditText android:id="@+id/etFuerza" android:layout_width="160dp" android:layout_height="wrap_content" android:hint="Fuerza (STR)" android:inputType="number"/>
+                <EditText android:id="@+id/etInteligencia" android:layout_width="160dp" android:layout_height="wrap_content" android:hint="Inteligencia (INT)" android:inputType="number"/>
+                <EditText android:id="@+id/etBloqueo" android:layout_width="160dp" android:layout_height="wrap_content" android:hint="Bloqueo (BLO)" android:inputType="number"/>
+                <EditText android:id="@+id/etContrataque" android:layout_width="160dp" android:layout_height="wrap_content" android:hint="Contrataque (CON)" android:inputType="number"/>
+                <EditText android:id="@+id/etDestreza" android:layout_width="160dp" android:layout_height="wrap_content" android:hint="Destreza (DEX)" android:inputType="number"/>
+                <EditText android:id="@+id/etSabiduría" android:layout_width="160dp" android:layout_height="wrap_content" android:hint="Sabiduría (SAR)" android:inputType="number"/>
+            </GridLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -70,11 +89,11 @@
                 android:columnCount="2"
                 android:rowCount="3"
                 android:alignmentMode="alignBounds">
-                <EditText android:id="@+id/etFuerza" android:layout_width="160dp" android:layout_height="wrap_content" android:hint="Fuerza (STR)" android:inputType="number"/>
-                <EditText android:id="@+id/etDestreza" android:layout_width="160dp" android:layout_height="wrap_content" android:hint="Destreza (DEX)" android:inputType="number"/>
-                <EditText android:id="@+id/etConstitucion" android:layout_width="160dp" android:layout_height="wrap_content" android:hint="Constitución (CON)" android:inputType="number"/>
-                <EditText android:id="@+id/etInteligencia" android:layout_width="160dp" android:layout_height="wrap_content" android:hint="Inteligencia (INT)" android:inputType="number"/>
-                <EditText android:id="@+id/etSabiduria" android:layout_width="160dp" android:layout_height="wrap_content" android:hint="Sabiduría (WIS)" android:inputType="number"/>
+                <EditText android:id="@+id/etVoluntad" android:layout_width="160dp" android:layout_height="wrap_content" android:hint="Voluntad (VOL)" android:inputType="number"/>
+                <EditText android:id="@+id/etSigilo" android:layout_width="160dp" android:layout_height="wrap_content" android:hint="Sigilo (SIG)" android:inputType="number"/>
+                <EditText android:id="@+id/etIntimidacion" android:layout_width="160dp" android:layout_height="wrap_content" android:hint="Intimidación (INTI)" android:inputType="number"/>
+                <EditText android:id="@+id/etPercepcion" android:layout_width="160dp" android:layout_height="wrap_content" android:hint="Percepción (PER)" android:inputType="number"/>
+                <EditText android:id="@+id/etSuerte" android:layout_width="160dp" android:layout_height="wrap_content" android:hint="Suerte (SUE)" android:inputType="number"/>
                 <EditText android:id="@+id/etCarisma" android:layout_width="160dp" android:layout_height="wrap_content" android:hint="Carisma (CHA)" android:inputType="number"/>
             </GridLayout>
 
