@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Rolin">
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginAc"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -22,15 +22,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity2"
+            android:name=".SalaAc"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".MainActivity3"
+            android:name=".JugadorAc"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".MainActivity4"
+            android:name=".DadoAc"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".HabilidadesAc"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".InventarioAc"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>

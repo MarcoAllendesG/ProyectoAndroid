@@ -1,21 +1,17 @@
 package com.example.rolin
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.TextView
 import android.view.View
 import kotlin.random.Random
 
 
-class MainActivity4 : AppCompatActivity() {
+class DadoAc : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main4)
+        setContentView(R.layout.activity_dado)
 
         val btnRoll = findViewById<Button>(R.id.btnRoll)
         val txtDiceResult = findViewById<TextView>(R.id.txtDiceResult)
