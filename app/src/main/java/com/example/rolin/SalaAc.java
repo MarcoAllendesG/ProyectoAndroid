@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class SalaAc extends AppCompatActivity {
 
     private Button btnJoin;
+    private Button btnCreate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +33,19 @@ public class SalaAc extends AppCompatActivity {
         }
 
         btnJoin = findViewById(R.id.btnJoin);
+        btnCreate = findViewById(R.id.btnCreate);
 
         btnJoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SalaAc.this, JugadorAc.class);
                 startActivity(intent);
+            }
+        });
+        btnCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(SalaAc.this, "Funcion aún no disponible, ingrese a una sala sin necesidad de un código de momento...", Toast.LENGTH_SHORT).show();
             }
         });
     }

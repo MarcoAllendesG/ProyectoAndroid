@@ -21,25 +21,23 @@ class InventarioAc : AppCompatActivity() {
         binding = ActivityInventarioBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // CORREGIDO: Cada evento ahora llama a la función que le corresponde con sus parámetros correctos
         adapter = ObjetoAdapter(
             listaObjetos,
             onEditarClick = { itemAEditar ->
-                mostrarDialogoFormulario(itemAEditar) // Al editar, abre el formulario
+                mostrarDialogoFormulario(itemAEditar)
             },
             onEliminarClick = { itemAEliminar, posicion ->
-                mostrarDialogoConfirmarEliminar(itemAEliminar, posicion) // Al eliminar, abre la confirmación
+                mostrarDialogoConfirmarEliminar(itemAEliminar, posicion)
             }
         )
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
 
         binding.btnAgregar.setOnClickListener {
-            mostrarDialogoFormulario(null) // Al agregar un objeto nuevo, pasamos null al formulario
+            mostrarDialogoFormulario(null)
         }
     }
 
-    // FUNCIÓN PARA AGREGAR Y EDITAR (Restaurada y corregida)
     private fun mostrarDialogoFormulario(item: ObjetoItem?) {
         val dialogBinding = DialogObjetoBinding.inflate(LayoutInflater.from(this))
         val builder = AlertDialog.Builder(this)
@@ -63,16 +61,14 @@ class InventarioAc : AppCompatActivity() {
                 val cantidad = cantidadStr.toInt()
 
                 if (item != null) {
-                    // MODIFICAR objeto existente
                     item.nombre = nombre
                     item.cantidad = cantidad
                     adapter.notifyDataSetChanged() // Refresca la lista visualmente
                     Toast.makeText(this, "Objeto modificado", Toast.LENGTH_SHORT).show()
                 } else {
-                    // AGREGAR nuevo objeto
                     val nuevoItem = ObjetoItem(UUID.randomUUID().toString(), nombre, cantidad)
                     listaObjetos.add(nuevoItem)
-                    adapter.notifyItemInserted(listaObjetos.size - 1) // Avisa al adapter que se sumó uno al final
+                    adapter.notifyItemInserted(listaObjetos.size - 1)
                 }
                 dialog.dismiss()
             }
@@ -82,7 +78,7 @@ class InventarioAc : AppCompatActivity() {
         builder.create().show()
     }
 
-    // FUNCIÓN PARA ELIMINAR
+
     private fun mostrarDialogoConfirmarEliminar(item: ObjetoItem, posicion: Int) {
         AlertDialog.Builder(this)
             .setTitle("Eliminar objeto")
