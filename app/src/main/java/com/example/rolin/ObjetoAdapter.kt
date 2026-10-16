@@ -24,10 +24,8 @@ class ObjetoAdapter(
         holder.binding.tvNombre.text = item.nombre
         holder.binding.tvCantidad.text = "Cant: " + item.cantidad.toString()
 
-        // Evento Editar
         holder.binding.btnEditar.setOnClickListener { onEditarClick(item) }
 
-        // NUEVO: Evento Eliminar pasándole la posición exacta
         holder.binding.btnEliminar.setOnClickListener {
             onEliminarClick(item, holder.adapterPosition)
         }

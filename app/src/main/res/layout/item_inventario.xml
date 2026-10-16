@@ -32,7 +32,6 @@
         android:background="?attr/selectableItemBackground"
         android:contentDescription="Editar" />
 
-    <!-- NUEVO: Botón de Eliminar -->
     <ImageButton
         android:id="@+id/btnEliminar"
         android:layout_width="wrap_content"
