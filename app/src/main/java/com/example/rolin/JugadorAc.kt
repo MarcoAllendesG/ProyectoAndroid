@@ -68,7 +68,8 @@ class JugadorAc : AppCompatActivity() {
         }
 
         btnNotas.setOnClickListener {
-            Toast.makeText(this, "Proximamente...", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, NotasAc::class.java)
+            startActivity(intent)
         }
 
     }
