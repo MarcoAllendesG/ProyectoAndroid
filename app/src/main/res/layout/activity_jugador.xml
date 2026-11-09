@@ -121,6 +121,133 @@
                 <EditText android:id="@+id/etSuerte" android:layout_width="160dp" android:layout_height="wrap_content" android:hint="Suerte (SUE)" android:inputType="number"/>
                 <EditText android:id="@+id/etCarisma" android:layout_width="160dp" android:layout_height="wrap_content" android:hint="Carisma (CHA)" android:inputType="number"/>
             </GridLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Estado"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"/>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="0,2"
+                android:layout_marginBottom="16dp">
+
+                <TableRow android:gravity="center_vertical" android:layout_marginBottom="4dp">
+                    <EditText
+                        android:id="@+id/etVidaActual"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Vida Act."
+                        android:inputType="number"
+                        android:gravity="center"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="/"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:paddingHorizontal="8dp"/>
+                    <EditText
+                        android:id="@+id/etVidaMax"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Vida Máx."
+                        android:inputType="number"
+                        android:gravity="center"/>
+                </TableRow>
+
+                <TableRow android:gravity="center_vertical" android:layout_marginBottom="4dp">
+                    <EditText
+                        android:id="@+id/etManaActual"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Maná Act."
+                        android:inputType="number"
+                        android:gravity="center"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="/"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:paddingHorizontal="8dp"/>
+                    <EditText
+                        android:id="@+id/etManaMax"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Maná Máx."
+                        android:inputType="number"
+                        android:gravity="center"/>
+                </TableRow>
+
+                <TableRow android:gravity="center_vertical" android:layout_marginBottom="4dp">
+                    <EditText
+                        android:id="@+id/etAguanteActual"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Aguante Act."
+                        android:inputType="number"
+                        android:gravity="center"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="/"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:paddingHorizontal="8dp"/>
+                    <EditText
+                        android:id="@+id/etAguanteMax"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Aguante Máx."
+                        android:inputType="number"
+                        android:gravity="center"/>
+                </TableRow>
+            </TableLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Barras de Estado"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp"/>
+
+            <!-- Barra de Vida (Verde) -->
+            <ProgressBar
+                android:id="@+id/pbVida"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:layout_marginBottom="8dp"
+                android:progressTint="#4CAF50"
+                android:progressBackgroundTint="#E0E0E0"
+                tools:progress="70"/>
+
+            <!-- Barra de Maná (Azul) -->
+            <ProgressBar
+                android:id="@+id/pbMana"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:layout_marginBottom="8dp"
+                android:progressTint="#2196F3"
+                android:progressBackgroundTint="#E0E0E0"
+                tools:progress="50"/>
+
+            <!-- Barra de Aguante (Amarillo/Naranja) -->
+            <ProgressBar
+                android:id="@+id/pbAguante"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:layout_marginBottom="16dp"
+                android:progressTint="#FFC107"
+                android:progressBackgroundTint="#E0E0E0"
+                tools:progress="80"/>
 
             <LinearLayout
                 android:id="@+id/personaje_extra"
@@ -143,6 +270,7 @@
                     android:layout_weight="1"
                     android:text="Habilidades"
                     android:textSize="11sp"/>
+
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
@@ -154,6 +282,7 @@
         android:orientation="horizontal"
         android:weightSum="3"
         app:layout_constraintBottom_toBottomOf="parent">
+
 
         <Button
             android:id="@+id/btnDados"
