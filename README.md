@@ -1,26 +1,55 @@
 ﻿# ProyectoAndroid
 
-Este proyecto busca realizar una aplicación de apoyo en el mundo de los juegos de mesa de rol, ya que siempre se tiene que contar con papel y lapiz para modificar hojas de personaje, objetos, y todo tipo de estadisticas, con este sistema se plantea digitalizarlo y colocarlo en una interfaz que se puedan modificar los valores en tiempo real.
+**Una aplicación Android diseñada para digitalizar y gestionar el ecosistema de los juegos de mesa de rol (RPG) en tiempo real.** El sistema elimina la necesidad de usar papel y lápiz, centralizando hojas de personaje, inventarios y estadísticas en una interfaz interactiva y dinámica.
 
-FACTORES IMPORTANTES A DESTACAR
-  -Reemplazar el uso de escritura fisica por redacción digital.
-  -Permitir la conexión entre usuarios para compartir la información en tiempo real.
-  -Dar variadas opciones de personalización para los usuarios.
+## 🚀 Factores Clave
 
-  -REQUERIMIENTOS-
-  *El usuario tendrá una cuenta que utilizará para ingresar sesión en el sistema y acceder a los archivos que tenga asociados.
-  *El usuario podrá crear sesiones de rol para que se unan otros usuarios (En condición de Game/Dungeon master).
-  *El usuario podrá unirse a una sesión creada por otro (En condición de Jugador).
-  *El sistema guardará todos los documentos asociados de cada usuario en la base de datos.
-  *La base de datos estará conectada a la nube para que cada usuario pueda acceder a sus archivos en todo momento, en cualquier lugar.
-  *El usuario que cumple rol de jugador, poseera una "Hoja de vida" (Documento que posee información del personaje del jugador, inventario, habilidades, etc).
-  *El usuario que cumple rol de jugador, contará con una sección de notas integrada, para anotar cualquier detalle de la sesión que le parezca de importancia.
-  *El usuario que cumple rol de DM, poseera un menú en el que acceder a cualquier archivo cargado (formatos compatibles tales como pdf, txt, word) o generar notas más complejas, para contar con la información en cualquier momento.
-  *El usuario que cumple rol de DM, podrá generar "enemigos" (En una sección de su menú puede generar fichas de enemigo, que serían pequeños recuadros con una cantidad de vida, la cantidad de fichas puede ser como el DM lo prefiera, y modificar los valores de vida a su gusto, además de eliminarlos en cualquier momento)
-  *El usuario que cumple rol de DM podrá visualizar la información de la "hoja de vida" de los demás usuarios en la sesión.
-  *Ambos usuarios contarán con una gama de configuraciones para su interfaz y la sala (Por ejemplo, desactivar o activar funciones que no quieran ser visualizadas)
-  *El usuario que cumple rol de jugador, podrá visualizar las fichas generadas por el DM.
-  *Ambos usuarios contarán con una función de dado integrada y una calculadora.
-  *El sistema debe permitir al usuario cargar archivos para una experiencia personalizada.
-  *El sistema debe contar con imagenes predefinidas para darle una personalización básica para el usuario.
-  *El usuario que cumple rol de DM, contará con una galería de sonidos predefinidos para utilizar (O subir los suyos propios)
+* **Redacción digital:** Reemplaza por completo el uso de escritura física por un sistema digital ágil.
+* **Sincronización en tiempo real:** Permite la conexión entre usuarios para compartir datos de la partida instantáneamente.
+* **Personalización avanzada:** Ofrece variadas opciones para que cada usuario adapte la interfaz a sus necesidades.
+
+## 📋 Requerimientos del Sistema
+
+### Gestión de Usuarios y Conectividad
+* **Autenticación:** El usuario contará con una cuenta personal para iniciar sesión y acceder a sus archivos asociados.
+* **Persistencia en la nube:** La base de datos estará conectada a la nube para garantizar el acceso a la información en cualquier momento y lugar.
+* **Arquitectura Cliente-Servidor:** El sistema guardará todos los documentos y cambios de cada usuario directamente en la base de datos centralizada.
+
+### Dinámica de Partida (Roles)
+* **Creación de Sesiones (DM):** El usuario podrá crear sesiones de rol en condición de *Game Master* / *Dungeon Master* (DM) para que otros se unan.
+* **Unirse a Sesiones (Jugador):** El usuario podrá unirse a sesiones activas creadas por otros usuarios en condición de *Jugador*.
+
+### Módulo del Jugador
+* **Hoja de Personaje:** El jugador poseerá una "Hoja de Vida" digital con información del personaje, estadísticas, inventario y habilidades.
+* **Bloc de Notas:** Sección de notas integrada para registrar eventos, pistas o detalles importantes durante la sesión.
+
+### Módulo del Dungeon Master (DM)
+* **Gestor de Archivos:** Menú dedicado para acceder a documentos cargados (formatos compatibles: PDF, TXT, DOCX) y generar notas de campaña complejas.
+* **Gestor de Combate (Enemigos):** Sección para generar fichas de enemigos (recuadros dinámicos con puntos de vida y estadísticas básicas) de forma ilimitada y modificables en tiempo real durante los encuentros.
+
+## 🛠️ Stack Tecnológico
+
+* **Lenguaje de Programación:** Kotlin
+* **Manejo de UI:** Jetpack Compose (Declarativa) / XML Views (Tradicional)
+* **Base de Datos Local:** Room Database (para persistencia y soporte offline)
+* **Backend & Nube (Firebase):**
+  * *Firebase Authentication:* Registro e inicio de sesión seguro.
+  * *Cloud Firestore / Realtime Database:* Sincronización de datos entre DM y jugadores en tiempo real.
+  * *Firebase Cloud Storage:* Almacenamiento de archivos adjuntos (PDFs, imágenes de personajes, etc.).
+* **Concurrencia:** Kotlin Coroutines & Flow (para flujos de datos reactivos).
+* **Inyección de Dependencias:** Hilt / Koin
+
+## 📐 Arquitectura de Software
+
+El proyecto está desarrollado bajo el patrón de arquitectura **MVVM (Model-View-ViewModel)** siguiendo los principios de **Clean Architecture** para garantizar un código escalable, mantenible y testeable:
+
+* **Presentación (UI):** Views/Composables y ViewModels que reaccionan al estado de la pantalla.
+* **Dominio:** Casos de uso (*Use Cases*) que contienen la lógica de negocio pura del juego de rol (ej. calcular daño, subir de nivel, unirse a sesión).
+* **Datos:** Repositorios encargados de decidir si la información se obtiene del caché local (Room) o del servidor remoto (Firebase).
+
+## ⚙️ Requisitos Técnicos
+
+* **Mínimo SDK:** API 26 (Android 8.0 Oreo) - Para asegurar compatibilidad con la mayoría de dispositivos modernos.
+* **SDK Objetivo:** API 34 (Android 14) o superior.
+* **Entorno de Desarrollo:** Android Studio Jellyfish (o versión más reciente).
+* **Versión de Gradle:** 8.0+
