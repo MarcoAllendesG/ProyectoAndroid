@@ -4,29 +4,28 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-// Clase de datos para representar un enemigo en el registro físico
 data class EnemyEntity(
     val id: String,
     val name: String,
     val maxHp: Int,
-    var currentHp: Int
+    var currentHp: Int,
+    val imageUri: String? = null
 )
 
 class DungeonMasterViewModel : ViewModel() {
 
-    // Lista mutable interna de enemigos
     private val _enemies = MutableStateFlow<List<EnemyEntity>>(emptyList())
     val enemies: StateFlow<List<EnemyEntity>> = _enemies
 
-    // Simulación de código de sala/campaña física para compartir
-    val campaignCode: String = "CAMP-7742"
+    var campaignCode: String = "CAMP-7742"
 
-    fun addEnemy(name: String, maxHp: Int) {
+    fun addEnemy(name: String, maxHp: Int, imageUri: String? = null) {
         val newEnemy = EnemyEntity(
             id = System.currentTimeMillis().toString(),
             name = name,
             maxHp = maxHp,
-            currentHp = maxHp
+            currentHp = maxHp,
+            imageUri = imageUri
         )
         _enemies.value = _enemies.value + newEnemy
     }

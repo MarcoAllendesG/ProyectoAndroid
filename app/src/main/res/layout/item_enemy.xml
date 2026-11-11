@@ -2,73 +2,97 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginHorizontal="8dp"
-    android:layout_marginVertical="6dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="3dp">
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="6dp"
+    android:layout_marginVertical="3dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="8dp">
 
-        <!-- Nombre del monstruo/enemigo -->
+        <ImageView
+            android:id="@+id/ivEnemyAvatar"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="#E0E0E0"
+            android:scaleType="centerCrop"
+            android:src="@android:drawable/ic_menu_gallery"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/tvEnemyName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Orco Guerrero"
-            android:textSize="18sp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Orco"
+            android:textSize="15sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnMinus" />
+            app:layout_constraintEnd_toStartOf="@+id/btnMinus"
+            app:layout_constraintStart_toEndOf="@id/ivEnemyAvatar"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Indicador numérico de vida (Ej: HP: 25 / 40) -->
         <TextView
             android:id="@+id/tvEnemyHp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginStart="10dp"
             android:text="HP: 40 / 40"
             android:textColor="?attr/colorError"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvEnemyName"
-            app:layout_constraintEnd_toStartOf="@+id/btnMinus" />
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@+id/btnMinus"
+            app:layout_constraintStart_toEndOf="@id/ivEnemyAvatar"
+            app:layout_constraintTop_toBottomOf="@id/tvEnemyName" />
 
-        <!-- Barra visual de vida -->
         <ProgressBar
             android:id="@+id/pbEnemyHp"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_height="6dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
             android:max="100"
             android:progress="100"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvEnemyHp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnMinus"
-            android:layout_marginEnd="16dp"/>
+            app:layout_constraintStart_toEndOf="@id/ivEnemyAvatar"
+            app:layout_constraintTop_toBottomOf="@id/tvEnemyHp" />
 
-        <!-- Botón rápido para restar 1 punto de vida -->
-        <com.google.android.material.button.MaterialButton
+        <ImageButton
             android:id="@+id/btnMinus"
-            style="@style/Widget.Material3.Button.IconButton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            app:icon="@android:drawable/ic_media_previous"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_media_previous"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btnPlus"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Botón rápido para sumar 1 punto de vida -->
-        <com.google.android.material.button.MaterialButton
+        <ImageButton
             android:id="@+id/btnPlus"
-            style="@style/Widget.Material3.Button.IconButton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            app:icon="@android:drawable/ic_input_add"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_input_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnDeleteEnemy"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnDeleteEnemy"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_delete"
+            app:tint="?attr/colorError"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

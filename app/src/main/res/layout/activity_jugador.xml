@@ -29,7 +29,6 @@
                 android:gravity="center"
                 android:layout_marginBottom="20dp"/>
 
-            <!-- NUEVO CONTENEDOR SECCIÓN SUPERIOR: FOTO + DATOS -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -37,7 +36,6 @@
                 android:gravity="center_vertical"
                 android:layout_marginBottom="16dp">
 
-                <!-- Imagen del Avatar (Haz clic en ella para tomar la foto) -->
                 <ImageView
                     android:id="@+id/imgAvatarPersonaje"
                     android:layout_width="100dp"
@@ -48,7 +46,6 @@
                     android:contentDescription="Avatar del jugador"
                     android:src="@android:drawable/ic_menu_camera" />
 
-                <!-- Bloque de textos al lado de la foto -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -62,14 +59,12 @@
                         android:hint="Nombre del Personaje"
                         android:inputType="textPersonName"/>
 
-                    <!-- Grid de datos rápidos optimizado -->
                     <GridLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:columnCount="2"
                         android:alignmentMode="alignBounds">
 
-                        <!-- Corregidos inputs a "text" para Raza y Clase -->
                         <EditText android:id="@+id/etRaza" android:layout_width="0dp" android:layout_gravity="fill_horizontal" android:layout_columnWeight="1" android:layout_height="wrap_content" android:hint="Raza" android:inputType="text"/>
                         <EditText android:id="@+id/etClase" android:layout_width="0dp" android:layout_gravity="fill_horizontal" android:layout_columnWeight="1" android:layout_height="wrap_content" android:hint="Clase" android:inputType="text" />
                         <EditText android:id="@+id/etNivel" android:layout_width="0dp" android:layout_gravity="fill_horizontal" android:layout_columnWeight="1" android:layout_height="wrap_content" android:hint="Nivel" android:inputType="number"/>
@@ -216,7 +211,6 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="4dp"/>
 
-            <!-- Barra de Vida (Verde) -->
             <ProgressBar
                 android:id="@+id/pbVida"
                 style="?android:attr/progressBarStyleHorizontal"
@@ -227,7 +221,6 @@
                 android:progressBackgroundTint="#E0E0E0"
                 tools:progress="70"/>
 
-            <!-- Barra de Maná (Azul) -->
             <ProgressBar
                 android:id="@+id/pbMana"
                 style="?android:attr/progressBarStyleHorizontal"
@@ -238,7 +231,6 @@
                 android:progressBackgroundTint="#E0E0E0"
                 tools:progress="50"/>
 
-            <!-- Barra de Aguante (Amarillo/Naranja) -->
             <ProgressBar
                 android:id="@+id/pbAguante"
                 style="?android:attr/progressBarStyleHorizontal"

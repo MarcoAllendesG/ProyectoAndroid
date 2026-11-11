@@ -13,10 +13,15 @@ class DmAc : AppCompatActivity() {
     private lateinit var binding: ActivityDmBinding
     private val viewModel: DungeonMasterViewModel by viewModels()
 
-    override fun onCreate(bundle: Bundle?) {
-        super.onCreate(bundle)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         binding = ActivityDmBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val incomingCode = intent.getStringExtra("SESSION_CODE")
+        if (!incomingCode.isNullOrEmpty()) {
+            viewModel.campaignCode = incomingCode
+        }
 
         setupViewPager()
     }

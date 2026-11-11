@@ -17,7 +17,6 @@ class CampaignPanelFragment : Fragment() {
     private var _binding: FragmentCampaignPanelBinding? = null
     private val binding get() = _binding!!
 
-    // Recuperamos el mismo ViewModel compartido de la actividad DmAc
     private val viewModel: DungeonMasterViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -36,12 +35,10 @@ class CampaignPanelFragment : Fragment() {
     }
 
     private fun displayCampaignData() {
-        // Asignamos a la UI el código único de sala definido en el ViewModel
         binding.tvCampaignCode.text = viewModel.campaignCode
     }
 
     private fun setupListeners() {
-        // Utilidad interactiva para copiar el código al portapapeles del celular
         binding.btnCopyCode.setOnClickListener {
             val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText("Código RPG", viewModel.campaignCode)

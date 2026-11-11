@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".CombatManagerFragment">
 
-    <!-- Lista interactiva de enemigos -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvEnemies"
         android:layout_width="0dp"
@@ -20,7 +19,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_enemy" />
 
-    <!-- Botón flotante para añadir un enemigo al vuelo -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddEnemy"
         android:layout_width="wrap_content"

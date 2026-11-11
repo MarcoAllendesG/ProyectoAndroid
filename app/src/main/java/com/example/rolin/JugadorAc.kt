@@ -18,17 +18,16 @@ import androidx.core.content.ContextCompat
 
 class JugadorAc : AppCompatActivity() {
 
+    private lateinit var dbHelper: DatabaseHelper
+    private var userEmail = ""
+    private var sessionCode = ""
     private lateinit var imgAvatarPersonaje: ImageView
-
-    // Declaración de variables para Vida, Maná y Aguante
     private lateinit var etVidaActual: EditText
     private lateinit var etVidaMax: EditText
     private lateinit var etManaActual: EditText
     private lateinit var etManaMax: EditText
     private lateinit var etAguanteActual: EditText
     private lateinit var etAguanteMax: EditText
-
-    // Declaración de variables para las Barras de Progreso
     private lateinit var pbVida: ProgressBar
     private lateinit var pbMana: ProgressBar
     private lateinit var pbAguante: ProgressBar
@@ -55,7 +54,6 @@ class JugadorAc : AppCompatActivity() {
 
         imgAvatarPersonaje = findViewById(R.id.imgAvatarPersonaje)
 
-        // Inicializar Inputs de Estado
         etVidaActual = findViewById(R.id.etVidaActual)
         etVidaMax = findViewById(R.id.etVidaMax)
         etManaActual = findViewById(R.id.etManaActual)
@@ -63,15 +61,18 @@ class JugadorAc : AppCompatActivity() {
         etAguanteActual = findViewById(R.id.etAguanteActual)
         etAguanteMax = findViewById(R.id.etAguanteMax)
 
-        // Inicializar Barras de Progreso
         pbVida = findViewById(R.id.pbVida)
         pbMana = findViewById(R.id.pbMana)
         pbAguante = findViewById(R.id.pbAguante)
 
-        // Vincular e implementar la lógica de actualización en tiempo real
         vincularBarraYValidar(etVidaActual, etVidaMax, pbVida, "Vida")
         vincularBarraYValidar(etManaActual, etManaMax, pbMana, "Maná")
         vincularBarraYValidar(etAguanteActual, etAguanteMax, pbAguante, "Aguante")
+
+        dbHelper = DatabaseHelper(this)
+        userEmail = intent.getStringExtra("USER_EMAIL") ?: ""
+        sessionCode = intent.getStringExtra("SESSION_CODE") ?: ""
+        cargarFichaPersonaje()
 
         val btnDados = findViewById<Button>(R.id.btnDados)
         val btnCalculadora = findViewById<Button>(R.id.btnCalculadora)
@@ -84,7 +85,10 @@ class JugadorAc : AppCompatActivity() {
         }
 
         btnHabilidades.setOnClickListener {
-            val intent = Intent(this, HabilidadesAc::class.java)
+            val intent = Intent(this, HabilidadesAc::class.java).apply {
+                putExtra("USER_EMAIL", userEmail)
+                putExtra("SESSION_CODE", sessionCode)
+            }
             startActivity(intent)
         }
 
@@ -94,7 +98,10 @@ class JugadorAc : AppCompatActivity() {
         }
 
         btnInventario.setOnClickListener {
-            val intent = Intent(this, InventarioAc::class.java)
+            val intent = Intent(this, InventarioAc::class.java).apply {
+                putExtra("USER_EMAIL", userEmail)
+                putExtra("SESSION_CODE", sessionCode)
+            }
             startActivity(intent)
         }
 
@@ -104,7 +111,10 @@ class JugadorAc : AppCompatActivity() {
         }
 
         btnNotas.setOnClickListener {
-            val intent = Intent(this, NotasAc::class.java)
+            val intent = Intent(this, NotasAc::class.java).apply {
+                putExtra("USER_EMAIL", userEmail)
+                putExtra("SESSION_CODE", sessionCode)
+            }
             startActivity(intent)
         }
 
@@ -136,7 +146,7 @@ class JugadorAc : AppCompatActivity() {
 
                 if (actualStr.isNotEmpty() && maxStr.isNotEmpty()) {
                     var actual = actualStr.toIntOrNull() ?: 0
-                    val max = maxStr.toIntOrNull() ?: 1 // Evitamos la división por 0
+                    val max = maxStr.toIntOrNull() ?: 1
 
                     if (actual > max) {
                         actual = max
@@ -155,5 +165,99 @@ class JugadorAc : AppCompatActivity() {
 
         etActual.addTextChangedListener(textWatcher)
         etMax.addTextChangedListener(textWatcher)
+    }
+    override fun onPause() {
+        super.onPause()
+        guardarFichaPersonaje()
+    }
+
+    private fun guardarFichaPersonaje() {
+        val db = dbHelper.writableDatabase
+        val values = android.content.ContentValues().apply {
+            put(UserContract.CharacterEntry.COLUMN_USER_EMAIL, userEmail)
+            put(UserContract.CharacterEntry.COLUMN_SESSION_CODE, sessionCode)
+            put(UserContract.CharacterEntry.COLUMN_NOMBRE, findViewById<EditText>(R.id.etNombre).text.toString())
+            put(UserContract.CharacterEntry.COLUMN_RAZA, findViewById<EditText>(R.id.etRaza).text.toString())
+            put(UserContract.CharacterEntry.COLUMN_CLASE, findViewById<EditText>(R.id.etClase).text.toString())
+            put(UserContract.CharacterEntry.COLUMN_NIVEL, findViewById<EditText>(R.id.etNivel).text.toString())
+            put(UserContract.CharacterEntry.COLUMN_DADOS, findViewById<EditText>(R.id.etDados).text.toString())
+            // Estadísticas
+            put(UserContract.CharacterEntry.COLUMN_STR, findViewById<EditText>(R.id.etFuerza).text.toString())
+            put(UserContract.CharacterEntry.COLUMN_INT, findViewById<EditText>(R.id.etInteligencia).text.toString())
+            put(UserContract.CharacterEntry.COLUMN_BLO, findViewById<EditText>(R.id.etBloqueo).text.toString())
+            put(UserContract.CharacterEntry.COLUMN_CON, findViewById<EditText>(R.id.etContrataque).text.toString())
+            put(UserContract.CharacterEntry.COLUMN_DEX, findViewById<EditText>(R.id.etDestreza).text.toString())
+            put(UserContract.CharacterEntry.COLUMN_SAB, findViewById<EditText>(R.id.etSabiduría).text.toString())
+            // Atributos
+            put(UserContract.CharacterEntry.COLUMN_VOL, findViewById<EditText>(R.id.etVoluntad).text.toString())
+            put(UserContract.CharacterEntry.COLUMN_SIG, findViewById<EditText>(R.id.etSigilo).text.toString())
+            put(UserContract.CharacterEntry.COLUMN_INTI, findViewById<EditText>(R.id.etIntimidacion).text.toString())
+            put(UserContract.CharacterEntry.COLUMN_PER, findViewById<EditText>(R.id.etPercepcion).text.toString())
+            put(UserContract.CharacterEntry.COLUMN_SUE, findViewById<EditText>(R.id.etSuerte).text.toString())
+            put(UserContract.CharacterEntry.COLUMN_CHA, findViewById<EditText>(R.id.etCarisma).text.toString())
+            // Estado
+            put(UserContract.CharacterEntry.COLUMN_VIDA_ACT, etVidaActual.text.toString())
+            put(UserContract.CharacterEntry.COLUMN_VIDA_MAX, etVidaMax.text.toString())
+            put(UserContract.CharacterEntry.COLUMN_MANA_ACT, etManaActual.text.toString())
+            put(UserContract.CharacterEntry.COLUMN_MANA_MAX, etManaMax.text.toString())
+            put(UserContract.CharacterEntry.COLUMN_AGUANTE_ACT, etAguanteActual.text.toString())
+            put(UserContract.CharacterEntry.COLUMN_AGUANTE_MAX, etAguanteMax.text.toString())
+        }
+
+        val updated = db.update(
+            UserContract.CharacterEntry.TABLE_NAME,
+            values,
+            "${UserContract.CharacterEntry.COLUMN_USER_EMAIL} = ? AND ${UserContract.CharacterEntry.COLUMN_SESSION_CODE} = ?",
+            arrayOf(userEmail, sessionCode)
+        )
+        if (updated == 0) {
+            db.insert(UserContract.CharacterEntry.TABLE_NAME, null, values)
+        }
+    }
+
+    private fun cargarFichaPersonaje() {
+        val db = dbHelper.readableDatabase
+        val cursor = db.query(
+            UserContract.CharacterEntry.TABLE_NAME,
+            null,
+            "${UserContract.CharacterEntry.COLUMN_USER_EMAIL} = ? AND ${UserContract.CharacterEntry.COLUMN_SESSION_CODE} = ?",
+            arrayOf(userEmail, sessionCode),
+            null, null, null
+        )
+
+        if (cursor.moveToFirst()) {
+            fun getSafeText(columnName: String): String {
+                val index = cursor.getColumnIndex(columnName)
+                return if (index != -1) cursor.getString(index) ?: "" else ""
+            }
+
+            findViewById<EditText>(R.id.etNombre).setText(getSafeText(UserContract.CharacterEntry.COLUMN_NOMBRE))
+            findViewById<EditText>(R.id.etRaza).setText(getSafeText(UserContract.CharacterEntry.COLUMN_RAZA))
+            findViewById<EditText>(R.id.etClase).setText(getSafeText(UserContract.CharacterEntry.COLUMN_CLASE))
+            findViewById<EditText>(R.id.etNivel).setText(getSafeText(UserContract.CharacterEntry.COLUMN_NIVEL))
+            findViewById<EditText>(R.id.etDados).setText(getSafeText(UserContract.CharacterEntry.COLUMN_DADOS))
+
+            findViewById<EditText>(R.id.etFuerza).setText(getSafeText(UserContract.CharacterEntry.COLUMN_STR))
+            findViewById<EditText>(R.id.etInteligencia).setText(getSafeText(UserContract.CharacterEntry.COLUMN_INT))
+            findViewById<EditText>(R.id.etBloqueo).setText(getSafeText(UserContract.CharacterEntry.COLUMN_BLO))
+            findViewById<EditText>(R.id.etContrataque).setText(getSafeText(UserContract.CharacterEntry.COLUMN_CON))
+            findViewById<EditText>(R.id.etDestreza).setText(getSafeText(UserContract.CharacterEntry.COLUMN_DEX))
+            findViewById<EditText>(R.id.etSabiduría).setText(getSafeText(UserContract.CharacterEntry.COLUMN_SAB))
+
+            findViewById<EditText>(R.id.etVoluntad).setText(getSafeText(UserContract.CharacterEntry.COLUMN_VOL))
+            findViewById<EditText>(R.id.etSigilo).setText(getSafeText(UserContract.CharacterEntry.COLUMN_SIG))
+            findViewById<EditText>(R.id.etIntimidacion).setText(getSafeText(UserContract.CharacterEntry.COLUMN_INTI))
+            findViewById<EditText>(R.id.etPercepcion).setText(getSafeText(UserContract.CharacterEntry.COLUMN_PER))
+            findViewById<EditText>(R.id.etSuerte).setText(getSafeText(UserContract.CharacterEntry.COLUMN_SUE))
+            findViewById<EditText>(R.id.etCarisma).setText(getSafeText(UserContract.CharacterEntry.COLUMN_CHA))
+
+            etVidaMax.setText(getSafeText(UserContract.CharacterEntry.COLUMN_VIDA_MAX))
+            etVidaActual.setText(getSafeText(UserContract.CharacterEntry.COLUMN_VIDA_ACT))
+            etManaMax.setText(getSafeText(UserContract.CharacterEntry.COLUMN_MANA_MAX))
+            etManaActual.setText(getSafeText(UserContract.CharacterEntry.COLUMN_MANA_ACT))
+            etAguanteMax.setText(getSafeText(UserContract.CharacterEntry.COLUMN_AGUANTE_MAX))
+            etAguanteActual.setText(getSafeText(UserContract.CharacterEntry.COLUMN_AGUANTE_ACT))
+        }
+        cursor.close()
     }
 }

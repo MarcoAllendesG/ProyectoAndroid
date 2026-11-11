@@ -5,33 +5,80 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginAc extends AppCompatActivity {
-    private TextView tvTitle;
-    private EditText etEmail;
-    private EditText etPassword;
-    private Button btnLogin;
 
+    private EditText etEmail, etPassword;
+    private Button btnLogin, btnRegister;
+    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        tvTitle = findViewById(R.id.tvTitle);
+        dbHelper = new DatabaseHelper(this);
+
+        // Vinculamos las vistas del XML
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
+        btnRegister = findViewById(R.id.btnRegister);
 
+        setupListeners();
+    }
+
+    private void setupListeners() {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginAc.this, SalaAc.class);
-                startActivity(intent);
+                String email = etEmail.getText().toString().trim();
+                String password = etPassword.getText().toString().trim();
+
+                if (validateInputs(email, password)) {
+                    boolean isValid = dbHelper.checkUserLogin(email, password);
+                    if (isValid) {
+                        Toast.makeText(LoginAc.this, "¡Bienvenido a My DnD Pal!", Toast.LENGTH_SHORT).show();
+                        goToMainMenu();
+                    } else {
+                        Toast.makeText(LoginAc.this, "Correo o contraseña incorrectos", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
+
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = etEmail.getText().toString().trim();
+                String password = etPassword.getText().toString().trim();
+
+                if (validateInputs(email, password)) {
+                    boolean isRegistered = dbHelper.registerUser(email, password);
+                    if (isRegistered) {
+                        Toast.makeText(LoginAc.this, "Usuario registrado con éxito", Toast.LENGTH_SHORT).show();
+                        goToMainMenu();
+                    } else {
+                        Toast.makeText(LoginAc.this, "Error: El correo ya está registrado", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+    }
+
+    private boolean validateInputs(String email, String password) {
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    private void goToMainMenu() {
+        Intent intent = new Intent(LoginAc.this, SalaAc.class);
+        startActivity(intent);
+        finish();
     }
 }

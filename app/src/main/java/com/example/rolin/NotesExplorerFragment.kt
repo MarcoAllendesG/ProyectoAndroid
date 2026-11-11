@@ -18,10 +18,8 @@ class NotesExplorerFragment : Fragment() {
     private var _binding: FragmentNotesExplorerBinding? = null
     private val binding get() = _binding!!
 
-    // Compartimos el ViewModel de la actividad principal (DmAc)
     private val viewModel: DungeonMasterViewModel by activityViewModels()
 
-    // Selector de archivos del sistema (Filtra por PDFs y archivos de texto)
     private val filePickerLauncher = registerForActivityResult(
         ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
@@ -45,30 +43,37 @@ class NotesExplorerFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        // Evento para cargar un documento desde el almacenamiento del celular
         binding.btnLoadFile.setOnClickListener {
-            // Buscamos cualquier tipo de archivo, idealmente PDF, TXT o DOCX
             filePickerLauncher.launch("*/*")
         }
 
-        // Registro digital en tiempo real: Detecta los cambios mientras escribes
         binding.etSessionNotes.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val currentText = s.toString()
-                // Aquí conectarás con tu repositorio o Firebase en la nube para guardar automáticamente
-                // ej: viewModel.saveLiveNotes(currentText)
             }
             override fun afterTextChanged(s: Editable?) {}
         })
     }
 
     private fun handleSelectedFile(uri: Uri) {
-        // Obtenemos el nombre del archivo de forma simplificada para el registro
-        val fileName = uri.lastPathSegment ?: "Archivo de Campaña"
-        binding.tvDocumentContent.text = "Documento cargado con éxito:\n$fileName\n\n[Listo para lectura enlazada]"
+        val mimeType = requireContext().contentResolver.getType(uri)
 
-        Toast.makeText(requireContext(), "Archivo vinculado a la sesión", Toast.LENGTH_SHORT).show()
+        if (mimeType == "text/plain") {
+            try {
+                val inputStream = requireContext().contentResolver.openInputStream(uri)
+                val content = inputStream?.bufferedReader()?.use { it.readText() }
+
+                binding.tvDocumentContent.text = content ?: "El archivo está vacío."
+                binding.tvDocumentContent.movementMethod = android.text.method.ScrollingMovementMethod()
+            } catch (e: Exception) {
+                binding.tvDocumentContent.text = "Error al leer el archivo: ${e.message}"
+            }
+        } else if (mimeType == "application/pdf") {
+            binding.tvDocumentContent.text = "Archivo PDF detectado. Para verlo aquí, necesitas integrar PdfRenderer o abrirlo externamente."
+        } else {
+            binding.tvDocumentContent.text = "Formato no soportado para vista previa directa ($mimeType)."
+        }
     }
 
     override fun onDestroyView() {
