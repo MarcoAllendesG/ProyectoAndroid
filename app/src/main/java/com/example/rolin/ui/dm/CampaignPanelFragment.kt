@@ -11,7 +11,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.rolin.databinding.FragmentCampaignPanelBinding
-
+/**
+ * Fragmento encargado de mostrar el panel general del dungeon master,
+ * desplegando el código único de la sala y permitiendo copiarlo al portapapeles.
+ */
 class CampaignPanelFragment : Fragment() {
 
     private var _binding: FragmentCampaignPanelBinding? = null
@@ -33,7 +36,9 @@ class CampaignPanelFragment : Fragment() {
         displayCampaignData()
         setupListeners()
     }
-
+    /**
+     * Asigna el código de campaña activo desde el ViewModel hacia la interfaz visual.
+     */
     private fun displayCampaignData() {
         binding.tvCampaignCode.text = viewModel.campaignCode
     }

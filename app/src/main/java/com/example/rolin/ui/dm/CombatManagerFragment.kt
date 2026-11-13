@@ -18,7 +18,10 @@ import androidx.lifecycle.lifecycleScope
 import com.example.rolin.databinding.FragmentCombatManagerBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-
+/**
+ * Fragmento dedicado a la gestión dinámica de encuentros y enemigos en tiempo real.
+ * Permite registrar nuevas fichas con imagen y alterar sus puntos de vida rápidamente.
+ */
 class CombatManagerFragment : Fragment() {
 
     private var _binding: FragmentCombatManagerBinding? = null
@@ -68,7 +71,10 @@ class CombatManagerFragment : Fragment() {
             showAddEnemyDialog()
         }
     }
-
+    /**
+     * Observa el flujo reactivo de enemigos en el ViewModel y actualiza el adaptador
+     * cada vez que ocurre un cambio en la lista.
+     */
     private fun observeViewModel() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.enemies.collectLatest { enemyList ->
@@ -76,7 +82,11 @@ class CombatManagerFragment : Fragment() {
             }
         }
     }
-
+    /**
+     * Solicita confirmación al usuario antes de eliminar la ficha de un enemigo.
+     *
+     * @param enemyId Identificador único del enemigo seleccionado.
+     */
     private fun confirmDeleteEnemy(enemyId: String) {
         AlertDialog.Builder(requireContext())
             .setTitle("Eliminar enemigo")
@@ -88,7 +98,10 @@ class CombatManagerFragment : Fragment() {
             .setNegativeButton("Cancelar") { dialog, _ -> dialog.dismiss() }
             .show()
     }
-
+    /**
+     * Despliega un cuadro de diálogo para ingresar los datos y fotografía (opcionalmente)
+     * de un nuevo enemigo en el combate.
+     */
     private fun showAddEnemyDialog() {
         val context = requireContext()
         selectedImageUri = null // Reiniciamos la selección previa

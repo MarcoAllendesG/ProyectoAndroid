@@ -11,7 +11,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
+import com.example.rolin.data.DatabaseHelper
+import com.example.rolin.data.UserContract
+/**
+ * Actividad dedicada a la creación, modificación o consulta de las habilidades.
+ */
 class HabilidadesAc : AppCompatActivity() {
 
     private lateinit var etTitulo1: EditText
@@ -101,7 +105,9 @@ class HabilidadesAc : AppCompatActivity() {
             }
         }
     }
-
+    /**
+     * Carga desde SQLite las habilidades registradas para el personaje en la sala activa.
+     */
     private fun cargarHabilidades() {
         val db = dbHelper.readableDatabase
         val cursor = db.query(
@@ -127,7 +133,10 @@ class HabilidadesAc : AppCompatActivity() {
         super.onPause()
         guardarHabilidades()
     }
-
+    /**
+     * Almacena en la base de datos local todas las habilidades presentes en la lista
+     * antes de salir de la pantalla.
+     */
     private fun guardarHabilidades() {
         val db = dbHelper.writableDatabase
         db.delete(
@@ -147,7 +156,9 @@ class HabilidadesAc : AppCompatActivity() {
             db.insert(UserContract.SkillEntry.TABLE_NAME, null, values)
         }
     }
-
+    /**
+     * Restablece a vacío los campos de texto del formulario de habilidades.
+     */
     private fun limpiarCampos() {
         etTitulo1.text.clear()
         etTitulo2.text.clear()

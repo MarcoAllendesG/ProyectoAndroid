@@ -53,3 +53,8 @@ El proyecto está desarrollado bajo el patrón de arquitectura **MVVM (Model-Vie
 * **SDK Objetivo:** API 34 (Android 14) o superior.
 * **Entorno de Desarrollo:** Android Studio Jellyfish (o versión más reciente).
 * **Versión de Gradle:** 8.0+
+
+## 🗄️ Diagramas adjuntos
+
+* ![Diagrama MER](docs/Diagrama%20MER.png)
+* ![Diagrama Flujo](docs/Diagrama%20de%20Flujo.png)

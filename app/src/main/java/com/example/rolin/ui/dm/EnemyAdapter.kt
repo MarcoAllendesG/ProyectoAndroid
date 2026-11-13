@@ -5,7 +5,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rolin.databinding.ItemEnemyBinding
-
+/**
+ * Adaptador de RecyclerView encargado de renderizar las tarjetas compactas de los enemigos
+ * y vincular los controles táctiles de vida y eliminación para tener una vista más dinamica de
+ * cada ficha de enemigo.
+ *
+ * @property enemies Lista actual de enemigos a mostrar.
+ * @property onHpChanged Función callback ejecutada al presionar los botones de sumar o restar vida.
+ * @property onDeleteEnemy Función callback ejecutada al presionar el botón de eliminar ficha.
+ */
 class EnemyAdapter(
     private var enemies: List<EnemyEntity>,
     private val onHpChanged: (String, Int) -> Unit,
@@ -42,7 +50,11 @@ class EnemyAdapter(
     }
 
     override fun getItemCount(): Int = enemies.size
-
+    /**
+     * Actualiza la lista si es necesario.
+     *
+     * @param newEnemies Nueva lista actualizada de enemigos.
+     */
     fun updateList(newEnemies: List<EnemyEntity>) {
         this.enemies = newEnemies
         notifyDataSetChanged()

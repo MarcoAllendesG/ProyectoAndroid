@@ -7,7 +7,14 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.example.rolin.databinding.ActivityDmBinding
-
+/**
+ * Actividad contenedora del panel del Dungeon Master (DM).
+ * Utiliza un sistema de navegación por pestañas (TabLayout y ViewPager2)
+ * para alternar entre el control de campaña, el gestor de combate y las notas de una
+ * manera más dinámica.
+ *
+ * @author MarcoAllendesG
+ */
 class DmAc : AppCompatActivity() {
 
     private lateinit var binding: ActivityDmBinding
@@ -25,7 +32,10 @@ class DmAc : AppCompatActivity() {
 
         setupViewPager()
     }
-
+    /**
+     * Configura el adaptador de fragmentos del ViewPager2 y lo alinea
+     * con las pestañas superiores de navegación.
+     */
     private fun setupViewPager() {
         binding.viewPager.adapter = object : FragmentStateAdapter(this) {
             override fun getItemCount(): Int = 3

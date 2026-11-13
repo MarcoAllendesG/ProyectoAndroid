@@ -7,8 +7,16 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.rolin.data.DatabaseHelper
 import kotlin.random.Random
-
+import androidx.activity.OnBackPressedCallback
+import com.example.rolin.ui.inicio.LoginAc
+/**
+ * Pantalla intermedia en la que el usuario crea sesión como dungeon master
+ * o se une a una sala a través de un código
+ *
+ * @author MarcoAllendesG
+ */
 class SalaAc : AppCompatActivity() {
 
     private lateinit var tvWelcome: TextView
@@ -34,8 +42,12 @@ class SalaAc : AppCompatActivity() {
         tvWelcome.text = "Bienvenido\n$userEmail"
 
         setupListeners()
+        setupBackButton()
     }
-
+    /**
+     * Configura los eventos de clic para ser dungeon master y generar el código de sala
+     * o utilizar un código ya creado para unirse a una sala en calidad de jugador.
+     */
     private fun setupListeners() {
         btnCreate.setOnClickListener {
             val randomNum = Random.nextInt(1000, 9999)
@@ -74,5 +86,18 @@ class SalaAc : AppCompatActivity() {
                 Toast.makeText(this, "Código inválido o la sesión no existe", Toast.LENGTH_LONG).show()
             }
         }
+    }
+    /**
+     * Intercepta el botón Atrás para regresar a la pantalla de inicio de sesión
+     * limpiando la sesión actual sin cerrar la aplicación.
+     */
+    private fun setupBackButton() {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val intent = Intent(this@SalaAc, LoginAc::class.java)
+                startActivity(intent)
+                finish()
+            }
+        })
     }
 }

@@ -22,7 +22,7 @@ class ItemAdapter (
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_habilidades, parent, false)
         return ItemViewHolder(view)
     }
 

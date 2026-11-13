@@ -5,7 +5,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-
+import com.example.rolin.data.DatabaseHelper
+import com.example.rolin.data.UserContract
+/**
+ * Bloc de notas rápido integrado para que el jugador registre pistas, eventos
+ * o recordatorios de la sesión y los almacene directamente en su ficha de personaje.
+ */
 class NotasAc : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

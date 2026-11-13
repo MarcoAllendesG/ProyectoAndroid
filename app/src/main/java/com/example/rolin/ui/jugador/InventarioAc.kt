@@ -7,10 +7,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.rolin.data.DatabaseHelper
+import com.example.rolin.data.UserContract
 import com.example.rolin.databinding.ActivityInventarioBinding
 import com.example.rolin.databinding.DialogObjetoBinding
 import java.util.UUID
-
+/**
+ * Pantalla encargada de administrar el inventario del personaje mediante un RecyclerView.
+ * Permite crear, editar, eliminar y persistir objetos asociados a una sesión específica.
+ */
 class InventarioAc : AppCompatActivity() {
 
     private lateinit var binding: ActivityInventarioBinding
@@ -48,7 +53,10 @@ class InventarioAc : AppCompatActivity() {
             mostrarDialogoFormulario(null)
         }
     }
-
+    /**
+     * Recupera los objetos almacenados en SQLite para el usuario y sala actuales
+     * y actualizando la lista visual del adaptador de paso.
+     */
     private fun cargarInventario() {
         val db = dbHelper.readableDatabase
         val cursor = db.query(
@@ -74,7 +82,10 @@ class InventarioAc : AppCompatActivity() {
         super.onPause()
         guardarInventario()
     }
-
+    /**
+     * Sincroniza el estado actual de la lista de objetos con la base de datos local
+     * al pausar o abandonar la actividad.
+     */
     private fun guardarInventario() {
         val db = dbHelper.writableDatabase
         db.delete(
@@ -94,7 +105,11 @@ class InventarioAc : AppCompatActivity() {
             db.insert(UserContract.InventoryEntry.TABLE_NAME, null, values)
         }
     }
-
+    /**
+     * Muestra un cuadro de diálogo para registrar un nuevo objeto u modificar uno ya existente.
+     *
+     * @param item Objeto a editar o crear.
+     */
     private fun mostrarDialogoFormulario(item: ObjetoItem?) {
         val dialogBinding = DialogObjetoBinding.inflate(LayoutInflater.from(this))
         val builder = AlertDialog.Builder(this)
@@ -134,7 +149,12 @@ class InventarioAc : AppCompatActivity() {
         builder.setNegativeButton("Cancelar") { dialog, _ -> dialog.dismiss() }
         builder.create().show()
     }
-
+    /**
+     * Muestra una alerta de confirmación antes de remover un objeto del inventario.
+     *
+     * @param item Elemento seleccionado para eliminar.
+     * @param posicion Índice del elemento dentro de la lista del adaptador.
+     */
     private fun mostrarDialogoConfirmarEliminar(item: ObjetoItem, posicion: Int) {
         AlertDialog.Builder(this)
             .setTitle("Eliminar objeto")

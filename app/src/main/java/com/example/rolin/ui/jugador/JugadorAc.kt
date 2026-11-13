@@ -15,7 +15,15 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-
+import com.example.rolin.data.DatabaseHelper
+import com.example.rolin.data.UserContract
+/**
+ * Actividad principal del rol Jugador que gestiona la ficha de personaje digital,
+ * incluyendo datos básicos, estadísticas, atributos, barras de estado dinámicas
+ * y la navegación hacia las demás actividades de la partida (Inventario, Dado, etc).
+ *
+ * @author MarcoAllendesG
+ */
 class JugadorAc : AppCompatActivity() {
 
     private lateinit var dbHelper: DatabaseHelper
@@ -119,7 +127,10 @@ class JugadorAc : AppCompatActivity() {
         }
 
     }
-
+    /**
+     * Verifica si la aplicación cuenta con permisos de cámara concedidos.
+     * Si los tiene, abre la cámara para capturar el avatar; de lo contrario, pide permiso.
+     */
     private fun verificarPermisoYTomarFoto() {
         when {
             ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED -> {
@@ -132,8 +143,13 @@ class JugadorAc : AppCompatActivity() {
     }
 
     /**
-     * Valida que el valor ingresado no supere el máximo asignado
-     * y actualiza de manera proporcional las barras de progreso.
+     * Vincula dos campos de texto (valor actual y máximo) con una barra de progreso en tiempo real
+     * además de impedir que el valor actual supere el límite máximo.
+     *
+     * @param etActual Campo de entrada para el valor actual del recurso.
+     * @param etMax Campo de entrada para el límite máximo del recurso.
+     * @param progressBar Componente visual que refleja el porcentaje del recurso.
+     * @param nombreAtributo Etiqueta descriptiva utilizada en los mensajes de alerta.
      */
     private fun vincularBarraYValidar(etActual: EditText, etMax: EditText, progressBar: ProgressBar, nombreAtributo: String) {
         val textWatcher = object : TextWatcher {
@@ -170,7 +186,10 @@ class JugadorAc : AppCompatActivity() {
         super.onPause()
         guardarFichaPersonaje()
     }
-
+    /**
+     * Guarda toda la información de la ficha del personaje en la base de datos SQLite,
+     * vinculando también al correo del usuario y el código de la sesión actual.
+     */
     private fun guardarFichaPersonaje() {
         val db = dbHelper.writableDatabase
         val values = android.content.ContentValues().apply {
@@ -214,7 +233,10 @@ class JugadorAc : AppCompatActivity() {
             db.insert(UserContract.CharacterEntry.TABLE_NAME, null, values)
         }
     }
-
+    /**
+     * Consulta la base de datos local para recuperar y rellenar los campos de la ficha
+     * previamente guardada para el usuario y sala activos.
+     */
     private fun cargarFichaPersonaje() {
         val db = dbHelper.readableDatabase
         val cursor = db.query(

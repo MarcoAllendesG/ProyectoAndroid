@@ -7,12 +7,14 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.rolin.databinding.FragmentNotesExplorerBinding
-
+/**
+ * Fragmento que integra un visor de archivos locales (para poder leer archivos txt subidos por
+ * el usuario), junto con un bloc de notas en tiempo real para el Dungeon Master.
+ */
 class NotesExplorerFragment : Fragment() {
 
     private var _binding: FragmentNotesExplorerBinding? = null
@@ -55,7 +57,12 @@ class NotesExplorerFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {}
         })
     }
-
+    /**
+     * Procesa el archivo seleccionado desde el almacenamiento del dispositivo
+     * y renderiza su contenido si el formato es compatible (txt).
+     *
+     * @param uri Identificador uniforme del recurso seleccionado por el usuario.
+     */
     private fun handleSelectedFile(uri: Uri) {
         val mimeType = requireContext().contentResolver.getType(uri)
 
