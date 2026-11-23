@@ -3,7 +3,12 @@
     <style name="Base.Theme.Rolin" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
-        <item name="android:fontFamily">@font/poppins_regular</item>
-        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:fontFamily">@font/agrave_pro</item>
+        <item name="fontFamily">@font/agrave_pro</item>
+    </style>
+
+    <style name="Theme.Rolin" parent="Base.Theme.Rolin" >
+        <item name="android:fontFamily">@font/cinzel</item>
+        <item name="fontFamily">@font/cinzel</item>
     </style>
 </resources>
